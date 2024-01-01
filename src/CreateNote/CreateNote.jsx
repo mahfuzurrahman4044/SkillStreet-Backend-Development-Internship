@@ -3,17 +3,25 @@ import { Link } from "react-router-dom";
 const CreateNote = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
-    const note = e.target.noteInput.value;
-    const noteObject = { note: note };
-    console.log(noteObject);
-    fetch("https://skill-street-backend-development-internship-server.vercel.app/createNote", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(noteObject),
-    });
 
+    const form = e.target;
+    const title = form.titleInput.value;
+    const note = form.contentInput.value;
+    const date = form.dateInput.value;
+
+    const noteObject = { title, note, date };
+    console.log(noteObject);
+
+    fetch(
+      "https://skill-street-backend-development-internship-server.vercel.app/createNote",
+      {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(noteObject),
+      }
+    );
   };
   return (
     <div className="flex justify-center">
@@ -26,8 +34,18 @@ const CreateNote = () => {
           </div>
           <textarea
             className="textarea textarea-bordered"
-            placeholder="Write here"
-            name="noteInput"
+            placeholder="Title"
+            name="titleInput"
+          ></textarea>
+          <textarea
+            className="textarea textarea-bordered my-4"
+            placeholder="Content"
+            name="contentInput"
+          ></textarea>
+          <textarea
+            className="textarea textarea-bordered"
+            value={new Date()}
+            name="dateInput"
           ></textarea>
           <button type="submit" className="btn btn-primary mt-2">
             Submit

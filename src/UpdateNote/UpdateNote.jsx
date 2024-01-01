@@ -10,15 +10,20 @@ const UpdateNote = () => {
     fetch(`https://skill-street-backend-development-internship-server.vercel.app/notes/${id}`)
       .then((res) => res.json())
       .then((data) => {
-        setNote(data.note);
+        setNote(data);
       });
   }, [id]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const note = e.target.noteInput.value;
-    const noteObject = { note: note };
-    //     console.log(noteObject);
+
+    const form = e.target;
+    const title = form.titleInput.value;
+    const note = form.contentInput.value;
+    const date = form.dateInput.value;
+
+    const noteObject = { title, note, date };
+    console.log(noteObject);
 
     fetch(`https://skill-street-backend-development-internship-server.vercel.app/update/${id}`, {
       method: "PUT",
@@ -40,9 +45,20 @@ const UpdateNote = () => {
             </div>
             <textarea
               className="textarea textarea-bordered"
-              defaultValue={note}
-              placeholder="Write here"
-              name="noteInput"
+              defaultValue={note.title}
+              placeholder="Title"
+              name="titleInput"
+            ></textarea>
+            <textarea
+              className="textarea textarea-bordered my-4"
+              defaultValue={note.note}
+              placeholder="Content"
+              name="contentInput"
+            ></textarea>
+            <textarea
+              className="textarea textarea-bordered"
+              value={new Date()}
+              name="dateInput"
             ></textarea>
             <button type="submit" className="btn btn-primary mt-2">
               Update

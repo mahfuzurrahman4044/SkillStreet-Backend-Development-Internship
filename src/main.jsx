@@ -5,7 +5,6 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./Home/Home";
 import CreateNote from "./CreateNote/CreateNote";
 import UpdateNote from "./UpdateNote/UpdateNote";
-import DeleteNote from "./DeleteNote/DeleteNote";
 
 const router = createBrowserRouter([
   {
@@ -20,10 +19,6 @@ const router = createBrowserRouter([
     path: "/updateNote/:id",
     element: <UpdateNote></UpdateNote>,
     loader: ({ params }) => fetch(`/https://skill-street-backend-development-internship-server.vercel.app/notes/${params.id}`),
-  },
-  {
-    path: "/deleteNote",
-    element: <DeleteNote></DeleteNote>,
   },
 ]);
 
